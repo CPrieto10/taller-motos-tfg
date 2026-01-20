@@ -1,0 +1,26 @@
+# --- IDEs y Sistema ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# --- Backend (Java/Spring) ---
+backend/target/
+backend/*.class
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+*.jar
+*.war
+
+# --- Frontend (Angular/Node) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.editorconfig
+frontend/.cache/
+
+# --- Seguridad (IMPORTANTE) ---
+# Ignorar configuraciones locales con contraseñas
+# Tendrás un application.properties de ejemplo, pero el real no se sube si tiene claves reales
+# backend/src/main/resources/application-secret.properties

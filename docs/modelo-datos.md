@@ -25,7 +25,7 @@ Una moto puede tener varios mantenimientos.
 ### Mantenimiento
 Un mantenimiento pertenece a una única moto.
 - id
-- tipo
+- tipo (Enum con "aceite", "frenos", "cadena", etc)
 - fecha
 - kilómetros
 - observaciones

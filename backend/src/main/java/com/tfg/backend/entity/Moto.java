@@ -34,4 +34,5 @@ public class Moto {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)  // Esta columna se creará en la tabla 'motos'
     private Usuario usuario;
+
 }

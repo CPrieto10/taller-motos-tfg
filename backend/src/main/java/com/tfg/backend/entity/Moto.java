@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,10 +26,10 @@ public class Moto {
     @Column(name = "cilindrada", nullable = false)
     private Integer cilindrada;
 
-    @Column (name = "anio_fabricacion", nullable = false)
+    @Column(name = "anio_fabricacion", nullable = false)
     private Integer anio;
 
-    @Column (name = "km_actuales", nullable = false)
+    @Column(name = "km_actuales", nullable = false)
     private Integer kmActuales;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

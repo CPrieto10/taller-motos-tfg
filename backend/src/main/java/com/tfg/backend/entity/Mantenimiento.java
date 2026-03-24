@@ -1,5 +1,6 @@
 package com.tfg.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,8 @@ public class Mantenimiento {
     @ManyToOne(fetch = FetchType.LAZY, optional = false) //Con LAZY solo cargamos la moto cuando usamos mantenimiento.getMoto().
                                                         // Con optional = false el mantenimiento NO puede existir sin moto.
     @JoinColumn(name = "moto_id", nullable = false)  // Clave foránea que referencia a la tabla 'motos'
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Moto moto;
 
 }

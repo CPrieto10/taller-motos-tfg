@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable()) // Crucial para permitir POST desde Postman
+        http.csrf(csrf -> csrf.disable()) // Para permitir POST desde Postman
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }

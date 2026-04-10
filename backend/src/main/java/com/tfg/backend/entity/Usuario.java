@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,9 +38,8 @@ public class Usuario {
     @Column(name = "fecha_alta", nullable = false)
     private LocalDate fechaAlta;
 
-    /* Si quiero hacerlo bidireccional debo añadir esto
+    //Si quiero hacerlo bidireccional debo añadir esto
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore  // ← EVITA que se serialice la lista de rutas
     private List<Moto> motos = new ArrayList<>();
-    */
+
 }

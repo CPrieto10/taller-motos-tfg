@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*") // Aunque usemos JS puro, esto evita problemas iniciales
+
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;
@@ -24,7 +24,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest login) {
         return usuarioRepository.findByEmail(login.email())
                 .filter(user -> passwordEncoder.matches(login.password(), user.getPassword()))
-                .map(user -> ResponseEntity.ok().body("{\"message\": \"Login exitoso\"}"))
+                .map(user -> ResponseEntity.ok().body("{\"message\": \"Login exitoso\", \"userId\": " + user.getId() + "}"))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Credenciales incorrectas\"}"));
     }
 }

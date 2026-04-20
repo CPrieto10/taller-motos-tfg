@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Garaje - Taller de Motos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <h1><span style="color: var(--primary-red)">MOTO</span>LOG</h1>
+  <button class="secondary" onclick="cerrarSesion()">Cerrar Sesión</button>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Mis Vehículos</h2>
+    <table id="tablaMotos">
+      <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Año</th>
+        <th>Km</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Añadir Motocicleta</h2>
+    <form id="motoForm">
+      <input type="text" id="marca" placeholder="Marca (ej. Honda)" required>
+      <input type="text" id="modelo" placeholder="Modelo (ej. CB500F)" required>
+      <input type="number" id="anio" placeholder="Año" required>
+      <input type="number" id="kmActuales" placeholder="Km actuales" required>
+      <button type="submit">Registrar Moto</button>
+    </form>
+  </div>
+</main>
+
+<script src="js/motos.js"></script>
+</body>
+</html>

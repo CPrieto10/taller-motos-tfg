@@ -24,7 +24,14 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest login) {
         return usuarioRepository.findByEmail(login.email())
                 .filter(user -> passwordEncoder.matches(login.password(), user.getPassword()))
-                .map(user -> ResponseEntity.ok().body("{\"message\": \"Login exitoso\", \"userId\": " + user.getId() + "}"))
-                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Credenciales incorrectas\"}"));
+                .map(user -> {
+                    // Creamos un mapa para que Spring lo convierta a JSON automáticamente
+                    java.util.Map<String, Object> response = new java.util.HashMap<>();
+                    response.put("message", "Login exitoso");
+                    response.put("userId", user.getId());
+                    return ResponseEntity.ok().body(response);
+                })
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(java.util.Map.of("message", "Credenciales incorrectas")));
     }
 }

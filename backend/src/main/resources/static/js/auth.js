@@ -10,12 +10,20 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     });
 
     if (response.ok) {
-        // Guardamos las credenciales para poder hacer peticiones protegidas después (Basic Auth)
+        // 1. Leer el JSON de la respuesta para obtener el userId
+        const data = await response.json();
+
+        // 2. Guardar las credenciales (Basic Auth)
         const authHeader = 'Basic ' + btoa(email + ':' + password);
         sessionStorage.setItem('auth', authHeader);
 
+        // 3. Guardar el userId recibido del servidor
+        sessionStorage.setItem('userId', data.userId);
+
         alert("Login correcto");
-        // window.location.href = 'dashboard.html'; // Descomenta cuando crees esta página
+
+        // 4. Activar la redirección al panel de control
+        window.location.href = 'dashboard.html';
     } else {
         alert("Credenciales incorrectas");
     }

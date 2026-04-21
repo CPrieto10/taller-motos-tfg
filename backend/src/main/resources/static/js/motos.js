@@ -34,10 +34,16 @@ async function cargarMotos() {
 // Lógica para añadir una moto nueva
 document.getElementById('motoForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const auth = sessionStorage.getItem('auth');
+    const userId = sessionStorage.getItem('userId');
+
     const nuevaMoto = {
         marca: document.getElementById('marca').value,
         modelo: document.getElementById('modelo').value,
         anio: parseInt(document.getElementById('anio').value),
+        // AÑADE ESTA LÍNEA
+        cilindrada: parseInt(document.getElementById('cilindrada').value),
         kmActuales: parseInt(document.getElementById('kmActuales').value)
     };
 
@@ -51,8 +57,11 @@ document.getElementById('motoForm').addEventListener('submit', async (e) => {
     });
 
     if (response.ok) {
-        alert("Moto registrada en el garaje");
+        alert("Moto registrada correctamente");
+        document.getElementById('motoForm').reset();
         cargarMotos();
+    } else {
+        alert("Error al registrar. Revisa la consola del backend.");
     }
 });
 function verHistorial(motoId) {

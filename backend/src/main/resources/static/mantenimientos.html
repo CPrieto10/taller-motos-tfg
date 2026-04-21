@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Mantenimiento - MOTOLOG</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+    <h1><span style="color: var(--primary-red)">MOTO</span>LOG</h1>
+    <div>
+        <button class="secondary" onclick="window.location.href='dashboard.html'">Volver al Garaje</button>
+        <button class="secondary" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+</header>
+
+<main>
+    <div class="card">
+        <h2 id="tituloMoto">Historial de la Moto</h2>
+        <table id="tablaMantenimientos">
+            <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Kilómetros</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Registrar Nuevo Mantenimiento</h2>
+        <form id="mantenimientoForm">
+            <input type="date" id="fecha" required>
+            <select id="tipoMantenimiento" style="background: #252525; color: white; padding: 10px; border-radius: 4px; border: 1px solid var(--border-color);">
+                <option value="ACEITE">Cambio de Aceite</option>
+                <option value="FILTROS">Filtros</option>
+                <option value="NEUMATICOS">Neumáticos</option>
+                <option value="FRENOS">Frenos</option>
+                <option value="OTROS">Otros</option>
+            </select>
+            <input type="number" id="kmMantenimiento" placeholder="Km en ese momento" required>
+            <input type="text" id="descripcion" placeholder="Notas adicionales">
+            <button type="submit">Guardar Registro</button>
+        </form>
+    </div>
+</main>
+
+<script src="js/mantenimientos.js"></script>
+</body>
+</html>

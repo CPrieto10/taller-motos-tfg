@@ -38,9 +38,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html", "/login.html", "/registro.html", "/css/**", "/js/**").permitAll()
+                        // Cambiamos la línea para permitir todos los HTML y recursos estáticos
+                        .requestMatchers("/", "/*.html", "/css/**", "/js/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
+                        // Las peticiones de DATOS (API) siguen estando protegidas
                         .anyRequest().authenticated()
                 )
                 // Personalización de Basic Auth para evitar el popup del navegador

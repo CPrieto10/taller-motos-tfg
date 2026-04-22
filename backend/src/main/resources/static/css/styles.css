@@ -169,3 +169,95 @@ button.secondary:hover {
     flex-direction: column;
     gap: 1rem;
 }
+/* --- ESTILOS DE LA PANTALLA DE ACCESO (LOGIN Y REGISTRO) --- */
+
+/* Clase para el body que centra todo en la pantalla */
+.pantalla-acceso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212; /* Fondo oscuro global */
+}
+
+/* Contenedor principal que asegura el centrado vertical */
+.contenedor-centrado {
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para la tarjeta de registro */
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Estilo de la tarjeta de registro (hereda de .card si ya tienes una) */
+.tarjeta-acceso {
+    text-align: center;
+    animation: fadeIn 0.5s ease; /* Pequeña animación de entrada */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos para el formulario dentro de la tarjeta */
+.tarjeta-acceso form {
+    display: flex;
+    flex-direction: column; /* Alinea los campos verticalmente */
+    gap: 1.2rem; /* Espaciado entre campos */
+    margin-top: 1.5rem;
+}
+
+/* Estilos para los campos de entrada */
+.tarjeta-acceso input {
+    background-color: #252525; /* Fondo oscuro de input */
+    border: 1px solid #333; /* Borde sutil */
+    color: #fff; /* Texto blanco */
+    padding: 12px;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1rem;
+}
+
+/* Efecto al hacer foco en un input */
+.tarjeta-acceso input:focus {
+    border-color: var(--primary-red); /* Borde rojo al enfocar */
+}
+
+/* Estilos para el botón de registro */
+.tarjeta-acceso button {
+    background-color: var(--primary-red); /* Color rojo principal */
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
+
+/* Efecto al pasar el ratón por el botón */
+.tarjeta-acceso button:hover {
+    background-color: var(--primary-red-hover); /* Rojo más oscuro al hover */
+}
+
+/* Título de la tarjeta */
+.tarjeta-acceso h1 {
+    margin-top: 0;
+    color: var(--primary-red); /* Título en rojo */
+}
+
+/* Texto de "Iniciar sesión" */
+.tarjeta-acceso p.enlace-acceso {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.tarjeta-acceso p.enlace-acceso a {
+    color: var(--primary-red); /* Enlace en rojo */
+    text-decoration: none;
+    font-weight: bold;
+}

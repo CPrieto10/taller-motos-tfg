@@ -261,3 +261,28 @@ button.secondary:hover {
     text-decoration: none;
     font-weight: bold;
 }
+
+/* Estilos para móviles (pantallas de menos de 600px) */
+@media (max-width: 600px) {
+    .contenedor-centrado {
+        width: 95%; /* La tarjeta ocupa casi todo el ancho */
+        padding: 10px;
+    }
+
+    .card {
+        padding: 1.5rem; /* Reducimos márgenes internos */
+    }
+
+    /* Tablas: El gran problema en móviles */
+    table {
+        display: block;
+        overflow-x: auto; /* Permite deslizar la tabla lateralmente si no cabe */
+        white-space: nowrap;
+    }
+
+    /* Botones más grandes para dedos */
+    button {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+}

@@ -47,8 +47,6 @@ public class SecurityConfig {
                 )
                 // Personalización de Basic Auth para evitar el popup del navegador
                 .httpBasic(basic -> basic.authenticationEntryPoint((request, response, authException) -> {
-                    // Al usar sendError con 401, el navegador normalmente dispararía el popup.
-                    // Al personalizarlo aquí, evitamos que se incluya la cabecera 'WWW-Authenticate'.
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
                     response.getWriter().write("{\"message\": \"Acceso no autorizado: requiere autenticación\"}");

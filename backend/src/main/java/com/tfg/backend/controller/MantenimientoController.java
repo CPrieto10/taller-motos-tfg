@@ -2,6 +2,7 @@ package com.tfg.backend.controller;
 
 import com.tfg.backend.dto.MantenimientoDTO;
 import com.tfg.backend.entity.Mantenimiento;
+import com.tfg.backend.repository.MantenimientoRepository;
 import com.tfg.backend.service.MantenimientoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -12,13 +13,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mantenimientos")
-
 public class MantenimientoController {
 
     private final MantenimientoService mantenimientoService;
+    private final MantenimientoRepository mantenimientoRepository; // AÑADE ESTA LÍNEA
 
-    public MantenimientoController(MantenimientoService mantenimientoService) {
+    // ACTUALIZA EL CONSTRUCTOR PARA QUE TENGA LOS DOS:
+    public MantenimientoController(MantenimientoService mantenimientoService, MantenimientoRepository mantenimientoRepository) {
         this.mantenimientoService = mantenimientoService;
+        this.mantenimientoRepository = mantenimientoRepository;
     }
 
     @PostMapping("/moto/{motoId}")
@@ -38,6 +41,12 @@ public class MantenimientoController {
     @GetMapping("/{id}")
     public ResponseEntity<MantenimientoDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(convertToDTO(mantenimientoService.obtenerPorId(id)));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MantenimientoDTO> actualizar(@PathVariable Long id, @RequestBody Mantenimiento detalles) {
+        Mantenimiento actualizado = mantenimientoService.actualizar(id, detalles);
+        return ResponseEntity.ok(convertToDTO(actualizado));
     }
 
     @DeleteMapping("/{id}")

@@ -28,6 +28,18 @@ public class MantenimientoService {
         return mantenimientoRepository.save(mantenimiento);
     }
 
+    public Mantenimiento actualizar(Long id, Mantenimiento detalles) {
+        Mantenimiento m = mantenimientoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el mantenimiento"));
+
+        m.setFecha(detalles.getFecha());
+        m.setTipo(detalles.getTipo());
+        m.setKilometros(detalles.getKilometros());
+        m.setObservaciones(detalles.getObservaciones());
+
+        return mantenimientoRepository.save(m);
+    }
+
     public Mantenimiento obtenerPorId(Long id) {
         return mantenimientoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Mantenimiento no encontrado"));

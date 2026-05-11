@@ -35,6 +35,7 @@
     <div class="card">
         <h2>Registrar Nuevo Mantenimiento</h2>
         <form id="mantenimientoForm">
+            <input type="hidden" id="mantenimientoId">
             <input type="date" id="fecha" required>
             <select id="tipoMantenimiento" style="background: #252525; color: white; padding: 10px; border-radius: 4px; border: 1px solid var(--border-color);">
                 <option value="ACEITE">Cambio de Aceite</option>
@@ -45,7 +46,7 @@
             </select>
             <input type="number" id="kmMantenimiento" placeholder="Km en ese momento" required>
             <input type="text" id="descripcion" placeholder="Notas adicionales">
-            <button type="submit">Guardar Registro</button>
+            <button type="submit" id="btnGuardar">Guardar Registro</button>
         </form>
     </div>
 </main>

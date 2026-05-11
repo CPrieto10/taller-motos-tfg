@@ -1,23 +1,19 @@
+// 1. Variables de estado y sesión
+let editando = false;
 const auth = sessionStorage.getItem('auth');
 const motoId = sessionStorage.getItem('motoSeleccionadaId');
 
-if (!auth || !motoId) {
-    window.location.href = 'dashboard.html';
-}
+if (!auth || !motoId) { window.location.href = 'login.html'; }
 
-// 1. Cargar el historial al entrar
+// 2. Cargar los datos en la tabla
 async function cargarMantenimientos() {
     const response = await fetch(`/api/mantenimientos/moto/${motoId}`, {
         headers: { 'Authorization': auth }
     });
-
     if (response.ok) {
         const mantenimientos = await response.json();
         const tbody = document.querySelector('#tablaMantenimientos tbody');
         tbody.innerHTML = '';
-
-        mantenimientos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha)); // Ordenar por fecha reciente
-
         mantenimientos.forEach(m => {
             tbody.innerHTML += `
                 <tr>
@@ -26,56 +22,81 @@ async function cargarMantenimientos() {
                     <td>${m.kilometros} km</td>
                     <td>${m.descripcion || '-'}</td>
                     <td>
-                        <button onclick="eliminarMantenimiento(${m.id})" style="background: #444; padding: 5px 10px; font-size: 0.8rem;">Borrar</button>
+                        <button onclick="prepararEdicion(${m.id})" style="background:#2196F3; color:white; border:none; padding:5px; border-radius:3px; cursor:pointer;">Editar</button>
+                        <button onclick="eliminarMantenimiento(${m.id})" style="background:#f44336; color:white; border:none; padding:5px; border-radius:3px; cursor:pointer;">Borrar</button>
                     </td>
                 </tr>`;
         });
     }
 }
 
-// 2. Guardar nuevo mantenimiento
+// 3. Función para cuando pulsas el botón "Editar"
+async function prepararEdicion(id) {
+    const response = await fetch(`/api/mantenimientos/${id}`, {
+        headers: { 'Authorization': auth }
+    });
+    if (response.ok) {
+        const m = await response.json();
+        // Rellenamos el formulario con lo que viene de la DB
+        document.getElementById('mantenimientoId').value = m.id;
+        document.getElementById('fecha').value = m.fecha;
+        document.getElementById('tipoMantenimiento').value = m.tipo;
+        document.getElementById('kmMantenimiento').value = m.kilometros;
+        document.getElementById('descripcion').value = m.descripcion;
+
+        editando = true;
+        document.getElementById('btnGuardar').innerText = "Actualizar Registro";
+        document.getElementById('btnGuardar').style.backgroundColor = "#ff9800";
+    }
+}
+
+// 4. Guardar (Crear nuevo o Actualizar)
 document.getElementById('mantenimientoForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const idMantenimiento = document.getElementById('mantenimientoId').value;
     const nuevo = {
         fecha: document.getElementById('fecha').value,
         tipo: document.getElementById('tipoMantenimiento').value,
-        // CAMBIA 'km' POR 'kilometros' PARA QUE COINCIDA CON EL BACKEND
         kilometros: parseInt(document.getElementById('kmMantenimiento').value),
         descripcion: document.getElementById('descripcion').value
     };
 
-    const response = await fetch(`/api/mantenimientos/moto/${motoId}`, {
-        method: 'POST',
+    // Si editando es true, usamos PUT. Si no, POST.
+    const url = editando ? `/api/mantenimientos/${idMantenimiento}` : `/api/mantenimientos/moto/${motoId}`;
+    const metodo = editando ? 'PUT' : 'POST';
+
+    const response = await fetch(url, {
+        method: metodo,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': sessionStorage.getItem('auth')
+            'Authorization': auth
         },
         body: JSON.stringify(nuevo)
     });
 
     if (response.ok) {
-        alert("Mantenimiento registrado con éxito");
-        document.getElementById('mantenimientoForm').reset();
-        cargarMantenimientos(); // Recarga la tabla
+        alert(editando ? "¡Actualizado con éxito!" : "¡Registrado con éxito!");
+        resetearFormulario();
+        cargarMantenimientos();
     } else {
-        const error = await response.json();
-        alert("Error: " + (error.message || "No se pudo guardar"));
+        alert("Error al guardar. Revisa que todos los campos estén llenos.");
     }
 });
-async function eliminarMantenimiento(id) {
-    if(confirm("¿Seguro que quieres borrar este registro?")) {
-        const response = await fetch(`/api/mantenimientos/${id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': auth }
-        });
-        if (response.ok) cargarMantenimientos();
-    }
+
+function resetearFormulario() {
+    editando = false;
+    document.getElementById('mantenimientoForm').reset();
+    document.getElementById('mantenimientoId').value = '';
+    document.getElementById('btnGuardar').innerText = "Guardar Registro";
+    document.getElementById('btnGuardar').style.backgroundColor = "";
 }
 
-function cerrarSesion() {
-    sessionStorage.clear();
-    window.location.href = 'login.html';
+async function eliminarMantenimiento(id) {
+    if(confirm("¿Borrar este registro?")) {
+        await fetch(`/api/mantenimientos/${id}`, { method: 'DELETE', headers: { 'Authorization': auth } });
+        cargarMantenimientos();
+    }
 }
 
 cargarMantenimientos();

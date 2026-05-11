@@ -42,7 +42,6 @@ document.getElementById('motoForm').addEventListener('submit', async (e) => {
         marca: document.getElementById('marca').value,
         modelo: document.getElementById('modelo').value,
         anio: parseInt(document.getElementById('anio').value),
-        // AÑADE ESTA LÍNEA
         cilindrada: parseInt(document.getElementById('cilindrada').value),
         kmActuales: parseInt(document.getElementById('kmActuales').value)
     };
